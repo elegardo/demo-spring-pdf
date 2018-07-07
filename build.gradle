@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    jcenter()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+configurations {
+    dev
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-devtools")
+    
+    compile('org.thymeleaf:thymeleaf:3.0.7.RELEASE')
+    compile('org.thymeleaf:thymeleaf-spring4:3.0.7.RELEASE')
+    compile("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:2.1.2")
+    
+    compile("org.xhtmlrenderer:flying-saucer-core:9.1.6")
+    compile("org.xhtmlrenderer:flying-saucer-pdf-itext5:9.1.6")
+    
+    testCompile("junit:junit")
+    
+    dev("org.springframework.boot:spring-boot-devtools")
+}
+
+bootRun {
+    classpath = sourceSets.main.runtimeClasspath + configurations.dev
+}
